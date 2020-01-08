@@ -40,8 +40,13 @@ public class EditerCollaborateursController extends HttpServlet {
 			
 			if (parmExist == false){
 				
-				resp.getWriter().write("<p>Les paramètres suivants sont incorrects :</p>"+paramMissed.toString());
+				resp.getWriter().write("<p>Les paramètres suivants sont incorrects :</p>");
+				for(String p : paramMissed){
+					resp.getWriter().write("<p>"+p+"</p>");
+				}
+				
 			}else {
+				resp.setContentType("text/html");
 				resp.setStatus(201);
 				resp.getWriter()
 						.write("<h1>Edition de collaborateur</h1>" + "<ul><li>matricule : " + matricule
