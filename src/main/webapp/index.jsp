@@ -1,6 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
-<p>How are you doing?</p>
+<h2>Bonjour tt le monde!</h2>
 </body>
 </html>
