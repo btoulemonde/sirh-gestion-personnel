@@ -30,8 +30,9 @@ public class EditerCollaborateursController extends HttpServlet {
 	
 			
 			if (matricule == null || "".equals(matricule)) {
+				resp.setContentType("text/html");
 				resp.setStatus(400);
-				resp.getWriter().write("un matricule etait attendu");
+				resp.getWriter().write("<p>un matricule etait attendu</p>");
 
 			} else {
 				resp.setStatus(201);
