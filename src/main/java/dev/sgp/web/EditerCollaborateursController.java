@@ -39,6 +39,7 @@ public class EditerCollaborateursController extends HttpServlet {
 			}
 			
 			if (parmExist == false){
+				
 				resp.getWriter().write("<p>Les paramètres suivants sont incorrects :</p>");
 				for(String p : paramMissed){
 					resp.getWriter().write("<p>"+p+"</p>");
