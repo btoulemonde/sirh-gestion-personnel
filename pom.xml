@@ -10,7 +10,7 @@
 	<artifactId>sirh-gestion-personnel</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sgp</name>
+	<name>sirh-gestion-personnel</name>
 	<url>http://maven.apache.org</url>
 	
 	<dependencies>
@@ -22,6 +22,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>sirh-gestion-personnel</finalName>
+		<finalName>sgp</finalName>
 	</build>
 </project>
