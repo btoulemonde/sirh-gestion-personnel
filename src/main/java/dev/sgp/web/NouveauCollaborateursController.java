@@ -22,18 +22,12 @@ import dev.sgp.util.Constantes;
 public class NouveauCollaborateursController extends HttpServlet {
 	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateurs.jsp").forward(req, resp);
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nom = req.getParameter("nom");
@@ -60,14 +54,11 @@ public class NouveauCollaborateursController extends HttpServlet {
 				req.setAttribute("erreurAdresse", true);
 				valid=false;
 			}
-			if("".equals(numeroSecu)|| numeroSecu==null ){
+			if("".equals(numeroSecu)|| numeroSecu==null ||numeroSecu.length()!=15 ){
 				req.setAttribute("erreurNumeroSecu", true);
 				valid=false;
 			}
-			if(numeroSecu.length()!=15){
-				req.setAttribute("erreurSaisieNumeroSecu", true);
-				valid=false;
-			}
+			
 			
 		if(valid==true){
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -84,7 +75,7 @@ public class NouveauCollaborateursController extends HttpServlet {
 			collab.setNumeroSecu(numeroSecu);
 			collab.setMatricule("M"+mat);
 			collab.setEmailPro(prenom.toLowerCase()+"."+nom.toLowerCase()+"@"+suffixe);
-			collab.setPhoto("/image/avatar.jpg");
+			collab.setPhoto(req.getContextPath()+"/image/avatar.jpg");
 			collab.setActif(true);
 			collab.setDateHeureCreation(ZonedDateTime.now());
 

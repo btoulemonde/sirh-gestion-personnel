@@ -16,6 +16,9 @@ public class Collaborateur {
 	private boolean actif;
 	private String intitulePoste;
 	private Departement departement;
+	private String banque;
+	private String bic;
+	private String iban;
 	
 	
 	
@@ -169,6 +172,42 @@ public class Collaborateur {
 	 */
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
+	}
+	/** Getter
+	 * @return the banque
+	 */
+	public String getBanque() {
+		return banque;
+	}
+	/** Setter
+	 * @param banque the banque to set
+	 */
+	public void setBanque(String banque) {
+		this.banque = banque;
+	}
+	/** Getter
+	 * @return the bic
+	 */
+	public String getBic() {
+		return bic;
+	}
+	/** Setter
+	 * @param bic the bic to set
+	 */
+	public void setBic(String bic) {
+		this.bic = bic;
+	}
+	/** Getter
+	 * @return the iban
+	 */
+	public String getIban() {
+		return iban;
+	}
+	/** Setter
+	 * @param iban the iban to set
+	 */
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 
 }

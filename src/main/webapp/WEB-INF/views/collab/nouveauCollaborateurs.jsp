@@ -24,7 +24,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link"
-					href="index.html">Collaborateurs <span class="sr-only">(current)</span></a>
+					href="<%=request.getContextPath()%>/collaborateurs/lister">Collaborateurs <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
 				</li>
@@ -148,15 +148,10 @@
 					%>
 					<input type="text" class="form-control is-invalid" id="numeroSecu"
 						aria-describedby="inputGroupPrepend3" required>
-					<div class="invalid-feedback">Le numéro de sécrité sociale est obligatoire</div>
-
-
-					<%
-						}else if(request.getAttribute("erreurSaisieNumeroSecu") != null){
-					%>
-					<input type="text" class="form-control is-invalid" id="numeroSecu"
-						aria-describedby="inputGroupPrepend3" required>
 					<div class="invalid-feedback">Le numéro de sécurité sociale doit comporter 15 chiffres</div>
+
+
+					
 					<%
 						}else{
 					%>

@@ -5,53 +5,77 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.entite.Departement;
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
+import dev.sgp.util.Constantes;
+
 public class EditerCollaborateursController extends HttpServlet {
+
+	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+	private DepartementService depService = Constantes.DEPART_SERVICE;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String matricule = req.getParameter("matricule");
-		String titre = req.getParameter("titre");
-		String nom = req.getParameter("nom");
-		String prenom = req.getParameter("prenom");
+		List<Collaborateur> listeCollaborateurs = collabService.listerCollaborateurs();
+		Optional<Collaborateur> collab = listeCollaborateurs.stream().filter(c -> c.getMatricule().equals(matricule))
+				.findFirst();
 
-		Map<String,String> parametres = new HashMap<String,String>();
+		if (collab.isPresent()) {
 
-		parametres.put("matricule",matricule);
-		parametres.put("titre",titre);
-		parametres.put("nom",nom);
-		parametres.put("prenom",prenom);
+			req.setAttribute("collaborateur", collab.get());
+		}
 
-		boolean parmExist = true;
-		List<String> paramMissed = new ArrayList<>();
-			for(String param:parametres.keySet()){
-				if (parametres.get(param) == null || "".equals(parametres.get(param))) {
-				resp.setContentType("text/html");
-				resp.setStatus(400);
-				parmExist = false;
-				paramMissed.add(param);
-				} 
+		req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateurs.jsp").forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Optional<Collaborateur> collab = collabService.listerCollaborateurs().stream()
+				.filter(co -> co.getMatricule()==req.getParameter("matricule")).findFirst();
+		if (collab.isPresent()) {
+
+			Collaborateur collaborateur = collab.get();
+
+			collaborateur.setAdresse(req.getParameter("adresse"));
+
+			collaborateur.setIban(req.getParameter("iban"));
+			collaborateur.setBic(req.getParameter("bic"));
+			collaborateur.setIntitulePoste(req.getParameter("poste"));
+
+			if (req.getParameter("desactiver") == null) {
+				collaborateur.setActif(true);
+			} else {
+				collaborateur.setActif(false);
+			}
+			List<Departement> listeDepartements = depService.listerDepartements();
+			Optional<Departement> dep = listeDepartements.stream()
+					.filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
+			if (dep.isPresent()) {
+				collaborateur.setDepartement(dep.get());
 			}
 			
-			if (parmExist == false){
-				
-				resp.getWriter().write("<p>Les paramètres suivants sont incorrects :</p>");
-				for(String p : paramMissed){
-					resp.getWriter().write("<p>"+p+"</p>");
-				}
-				
-			}else {
-				resp.setContentType("text/html");
-				resp.setStatus(201);
-				resp.getWriter()
-						.write("<h1>Edition de collaborateur</h1>" + "<ul><li>matricule : " + matricule
-								+ "</li><li>titre : " + titre + "</li><li>nom : " + nom + "</li><li>prenom : " + prenom
-								+ "</li></ul>");
-			}
+			
+			List<Collaborateur> collaborateurs = collabService.listerCollaborateurs().stream().filter(coll -> coll.isActif()).collect(Collectors.toList());
+			
+			req.setAttribute("listeNoms", collaborateurs);
+			
+			
+			req.getRequestDispatcher("/WEB-INF/views/collab/Lister_Collaborateurs.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
+
+		}
 	}
+
 }

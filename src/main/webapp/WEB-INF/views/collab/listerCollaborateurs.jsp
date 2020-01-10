@@ -26,7 +26,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link"
-					href="index.html">Collaborateurs <span class="sr-only">(current)</span></a>
+					href="<%=request.getContextPath()%>/collaborateurs/lister">Collaborateurs <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
 				</li>
@@ -93,7 +93,7 @@
 					<select name="departement" class="form-control">
 
 						<option>Tous</option>
-						<% List<Departement>  listeDepartements = Constantes.DEPART_SERVICE.listerDepartments();
+						<% List<Departement>  listeDepartements = Constantes.DEPART_SERVICE.listerDepartements();
 						for (Departement departement : listeDepartements){ %>
 						<option ><%=departement.getNom()%></option>
 						<%} %>
@@ -114,17 +114,17 @@
 
 			<div class="col-12 col-sm-6 col-xl-4 mt-3">
 				<div class="card  ">
-					<div class="card-header"><%=collab.getPrenom()+" "+collab.getNom().toUpperCase() %>
+					<div class="card-header"><%=collab.getPrenom()+" "+collab.getNom().toUpperCase() +" "+collab.getMatricule() %>
 					</div>
 					<div class="card-body">
 						<div class="media">
-							<img src="<%=request.getContextPath()+collab.getPhoto() %>"
+							<img src="<%=collab.getPhoto() %>"
 								class="align-self-center img-thumbnail " width="80" height="80">
 							<div class="media-body">
 
 								<ul>
-									<li>Fonction: XXXXXXXX</li>
-									<li>Département: XXXXXXXX</li>
+									<li>Fonction:<%=collab.getIntitulePoste() %></li>
+									<li>Département:</li>
 									<li>Email: <%=collab.getEmailPro() %></li>
 									<li>Téléphone: XXXXXXXX</li>
 								</ul>
@@ -134,7 +134,7 @@
 					</div>
 					<div class="card-footer">
 						<div class="col offset-9 ">
-							<a href="editer.html" class="btn btn-secondary btn-sm" disabled>Editer</a>
+							<a href="<%=request.getContextPath()%>/collaborateurs/editer?matricule=<%=collab.getMatricule()%>" class="btn btn-secondary btn-sm" disabled>Editer</a>
 						</div>
 					</div>
 				</div>
