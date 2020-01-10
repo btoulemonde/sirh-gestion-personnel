@@ -50,14 +50,20 @@
 					<label for="nom">Nom</label>
 				</div>
 				<div class="  col-8 col-sm-4 form-group">
-					<input type="text" name="nom" id="nom" class="form-control">
+					
 					<%
 						if (request.getAttribute("erreurNom") != null) {
 					%>
+					<input type="text" class="form-control is-invalid" id="nom"
+						aria-describedby="inputGroupPrepend3" required>
+					<div class="invalid-feedback">Le nom est obligatoire</div>
 
-					<div class="text-danger">Le nom est obligatoire</div>
 
-
+					<%
+						}else{
+					%>
+					<input type="text" name="nom" id="nom" class="form-control" <% if(request.getParameter("nom")!= null){
+					%>value="<%=request.getParameter("nom") %>"<%} %>>
 					<%
 						}
 					%>
@@ -68,14 +74,19 @@
 					<label for="prenom">Prenom</label>
 				</div>
 				<div class=" col-8 col-sm-4 form-group">
-					<input type="text" name="prenom" id="prenom" class="form-control">
 					<%
 						if (request.getAttribute("erreurPrenom") != null) {
 					%>
+					<input type="text" class="form-control is-invalid" id="prenom"
+						aria-describedby="inputGroupPrepend3" required>
+					<div class="invalid-feedback">Le prénom est obligatoire</div>
 
-					<div class="text-danger">Le prenom est obligatoire</div>
 
-
+					<%
+						}else{
+					%>
+					<input type="text" name="prenom" id="prenom" class="form-control" <% if(request.getParameter("prenom")!= null){
+					%>value="<%=request.getParameter("prenom") %>"<%} %>>
 					<%
 						}
 					%>
@@ -86,15 +97,19 @@
 					<label for="dateNaissance">Date de naissance</label>
 				</div>
 				<div class=" col-8 col-sm-4 form-group">
-					<input type="date" name="dateNaissance" id="dateNaissance"
-						class="form-control">
 					<%
 						if (request.getAttribute("erreurDateNaissance") != null) {
 					%>
+					<input type="date" class="form-control is-invalid" id="dateNaissance"
+						aria-describedby="inputGroupPrepend3" required>
+					<div class="invalid-feedback">La date de naissance est obligatoire</div>
 
-					<div class="text-danger">La date de naissance est obligatoire</div>
 
-
+					<%
+						}else{
+					%>
+					<input type="date" name="dateNaissance" id="dateNaissance" class="form-control" <% if(request.getParameter("dateNaissance")!= null){
+					%>value="<%=request.getParameter("dateNaissance") %>"<%} %>>
 					<%
 						}
 					%>
@@ -105,15 +120,19 @@
 					<label for="adresse">Adresse</label>
 				</div>
 				<div class="  col-8 col-sm-4 form-group">
-					<input name="adresse" class="form-control" placeholder="Adresse"
-						type="textarea" id="Adresse">
 					<%
 						if (request.getAttribute("erreurAdresse") != null) {
 					%>
+					<textarea class="form-control is-invalid" id="adresse" name="adresse"
+						aria-describedby="inputGroupPrepend3" rows="3" required></textarea>
+					<div class="invalid-feedback">L'adresse est obligatoire</div>
 
-					<div class="text-danger">L'adresse est obligatoire</div>
 
-
+					<%
+						}else{
+					%>
+					<textarea name="adresse" id="adresse" rows="3" class="form-control" value=""><% if(request.getParameter("adresse")!= null){
+					%><%=request.getParameter("adresse") %><%} %></textarea>
 					<%
 						}
 					%>
@@ -124,24 +143,27 @@
 					<label for="numeroSecu">Numéro de sécurité sociale</label>
 				</div>
 				<div class=" col-8 col-sm-4 form-group">
-					<input type="number" name="numeroSecu" id="numeroSecu"
-						class="form-control" placeholder="x-xx-xx-xxx-xxx-xx">
 					<%
 						if (request.getAttribute("erreurNumeroSecu") != null) {
 					%>
-
-					<div class="text-danger">Le numéro de sécurité sociale est
-						obligatoire</div>
+					<input type="text" class="form-control is-invalid" id="numeroSecu"
+						aria-describedby="inputGroupPrepend3" required>
+					<div class="invalid-feedback">Le numéro de sécrité sociale est obligatoire</div>
 
 
 					<%
-						} else {
+						}else if(request.getAttribute("erreurSaisieNumeroSecu") != null){
 					%>
-					<div class="text-danger">Le numéro de sécurité sociale doit
-						comporter 15 chiffres</div>
+					<input type="text" class="form-control is-invalid" id="numeroSecu"
+						aria-describedby="inputGroupPrepend3" required>
+					<div class="invalid-feedback">Le numéro de sécurité sociale doit comporter 15 chiffres</div>
 					<%
-						}
+						}else{
 					%>
+						
+						<input type="text" name="numeroSecu" id="numeroSecu" class="form-control" <% if(request.getParameter("numeroSecu")!= null){
+					%>value="<%=request.getParameter("numeroSecu") %>"<%} %>>
+					<%}  %>
 				</div>
 			</div>
 			<div class="row">

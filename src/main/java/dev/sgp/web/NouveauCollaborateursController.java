@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -72,6 +73,9 @@ public class NouveauCollaborateursController extends HttpServlet {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate dateN = LocalDate.parse(dateNaissance, formatter) ;
 			int mat = collabService.listerCollaborateurs().size() + 1;
+			ResourceBundle data = ResourceBundle.getBundle("application");				
+			String suffixe = data.getString("email");
+			
 			Collaborateur collab = new Collaborateur();
 			collab.setNom(nom);
 			collab.setPrenom(prenom);
@@ -79,8 +83,8 @@ public class NouveauCollaborateursController extends HttpServlet {
 			collab.setAdresse(adresse);
 			collab.setNumeroSecu(numeroSecu);
 			collab.setMatricule("M"+mat);
-			collab.setEmailPro(prenom.toLowerCase()+"."+nom.toLowerCase()+"@societe.com");
-			collab.setPhoto("<%=request.getContextPath()%>/image/avatar.jpg");
+			collab.setEmailPro(prenom.toLowerCase()+"."+nom.toLowerCase()+"@"+suffixe);
+			collab.setPhoto("/image/avatar.jpg");
 			collab.setActif(true);
 			collab.setDateHeureCreation(ZonedDateTime.now());
 
@@ -88,7 +92,7 @@ public class NouveauCollaborateursController extends HttpServlet {
 			
 			resp.setContentType("text/html");	
 			req.setAttribute("listeNom", collabService.listerCollaborateurs());
-			resp.sendRedirect("/sgp/collaborateurs/lister");
+			resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
 		}else{
 		
 			
