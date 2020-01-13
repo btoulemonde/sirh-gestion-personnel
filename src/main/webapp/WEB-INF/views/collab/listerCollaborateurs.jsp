@@ -63,10 +63,10 @@
 						</div>
 				</div>
 				<div class="col-12  col-md-3 mb-1 ">
-					<input type="text" id="nomPrenom" class="form-control">
+					<input type="text" id="nomPrenom" action="<%=request.getContextPath()%>/collaborateurs/lister" name="chercher" class="form-control">
 				</div>
 				<div class=" col-10 col-md-2 ">
-					<button type="submit" class="btn btn-secondary">Rechercher</button>
+					<button type="submit"  class="btn btn-secondary">Rechercher</button>
 					</fieldset>
 				</div>
 				<div class=" col-12  col-lg-3  mt-3 ">
@@ -108,7 +108,7 @@
 	<div class="coutainer px-5">
 		<div class="row mt-3 ">
 			<%
-                List<Collaborateur> listeCollaborateurs = (List<Collaborateur>) request.getAttribute("listeNoms");
+                List<Collaborateur> listeCollaborateurs = (List<Collaborateur>) request.getAttribute("collaborateurs");
                 for (Collaborateur collab : listeCollaborateurs) {
              %>
 
@@ -123,9 +123,10 @@
 							<div class="media-body">
 
 								<ul>
-									<li>Fonction:<%=collab.getIntitulePoste() %></li>
-									<li>Département:</li>
-									<li>Email: <%=collab.getEmailPro() %></li>
+									<li>Fonction:<%if (collab.getIntitulePoste() != null) {%>
+						<%=collab.getIntitulePoste()%> <%}else{%>XXXXXXXX<%} %></li>
+									<li>Département: <%if ( collab.getDepartement()!=null && collab.getDepartement().getNom() != null) {%><%=collab.getDepartement().getNom()%> <%}else{%>XXXXXXXX<%} %></li>
+									<li>Email: <%=collab.getEmailPro()  %></li>
 									<li>Téléphone: XXXXXXXX</li>
 								</ul>
 							</div>

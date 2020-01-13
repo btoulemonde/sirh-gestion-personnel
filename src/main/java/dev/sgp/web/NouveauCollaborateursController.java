@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
@@ -20,6 +16,10 @@ import dev.sgp.service.CollaborateurService;
 import dev.sgp.util.Constantes;
 
 public class NouveauCollaborateursController extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
 
 	@Override
@@ -82,7 +82,7 @@ public class NouveauCollaborateursController extends HttpServlet {
 			collabService.sauvegarderCollaborateur(collab);			
 			
 			resp.setContentType("text/html");	
-			req.setAttribute("listeNom", collabService.listerCollaborateurs());
+			req.setAttribute("collaborateurs", collabService.listerCollaborateurs());
 			resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
 		}else{
 		
