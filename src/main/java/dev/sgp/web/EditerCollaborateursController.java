@@ -34,6 +34,9 @@ public class EditerCollaborateursController extends HttpServlet {
 
 			req.setAttribute("collaborateur", collab.get());
 		}
+		List<Departement> departements = depService.listerDepartements();
+		
+		req.setAttribute("departements", departements);
 
 		req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateurs.jsp").forward(req, resp);
 	}
@@ -45,17 +48,13 @@ public class EditerCollaborateursController extends HttpServlet {
 		Optional<Collaborateur> collab = listeCollaborateurs.stream().filter(c -> c.getMatricule().equals(matricule))
 				.findFirst();
 		
-
 			Collaborateur collaborateur = collab.get();
 
 			collaborateur.setAdresse(req.getParameter("adresse"));
 			collaborateur.setIban(req.getParameter("iban"));
 			collaborateur.setBic(req.getParameter("bic"));
 			collaborateur.setIntitulePoste(req.getParameter("poste"));
-			
 
-			
-			
 			List<Departement> listeDepartements = depService.listerDepartements();
 			Optional<Departement> dep = listeDepartements.stream()
 					.filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
@@ -64,15 +63,11 @@ public class EditerCollaborateursController extends HttpServlet {
 				collaborateur.setDepartement(dep.get()); 
 			}
 			
-			
-			
 			if (req.getParameter("desactiver") == null) {
 				collaborateur.setActif(true);
 			} else {
 				collaborateur.setActif(false);
 			}
-			
-			
 			
 			req.setAttribute("collaborateurs", collabService.listerCollaborateurs().stream().filter(c2 -> c2.isActif()).collect(Collectors.toList()));
 			resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");

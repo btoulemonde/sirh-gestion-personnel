@@ -28,14 +28,17 @@ public class ListerCollaborateursController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Collaborateur> collaborateurs = collabService.listerCollaborateurs();
+		List<Departement> departements = depService.listerDepartements();
 		req.setAttribute("collaborateurs", collaborateurs);
+		req.setAttribute("departements", departements);
 		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
 	}
 
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Optional<Departement> dep= depService.listerDepartements().stream().filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
+		List<Departement> departements = depService.listerDepartements();
+		Optional<Departement> dep= departements.stream().filter(d -> d.getNom().equals(req.getParameter("departement"))).findFirst();
 		List<Collaborateur> listCollab = collabService.listerCollaborateurs();
 		
 		if(dep.isPresent()){
@@ -46,6 +49,7 @@ public class ListerCollaborateursController extends HttpServlet {
 		if(req.getParameter("afficherDesactiver")==null){
 		listCollab = listCollab.stream().filter(c -> c.isActif()).collect(Collectors.toList());
 		}
+		
 		
 		req.setAttribute("collaborateurs", listCollab);
 		req.setAttribute("afficherDesactiver", req.getParameter("afficherDesactiver"));

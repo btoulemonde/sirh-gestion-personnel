@@ -75,7 +75,7 @@ public class NouveauCollaborateursController extends HttpServlet {
 			collab.setNumeroSecu(numeroSecu);
 			collab.setMatricule("M"+mat);
 			collab.setEmailPro(prenom.toLowerCase()+"."+nom.toLowerCase()+"@"+suffixe);
-			collab.setPhoto(req.getContextPath()+"/image/avatar.jpg");
+			collab.setPhoto("/sgp/image/avatar.jpg");
 			collab.setActif(true);
 			collab.setDateHeureCreation(ZonedDateTime.now());
 

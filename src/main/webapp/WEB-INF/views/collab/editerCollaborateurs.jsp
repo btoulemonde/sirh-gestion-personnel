@@ -4,55 +4,54 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="fr">
-<%
-	Collaborateur collab = (Collaborateur) request.getAttribute("collaborateur");
-%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-tofit=
-no">
-<!-- Bootstrap CSS  -->
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>SGP - editer collaborateur</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<title>SGP - editer</title>
+	href="<c:url value="/bootstrap-4.4.1/dist/css/bootstrap.css"/>">
 </head>
+
+
 
 <body>
 	<div class="countainer">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#"> <img src="logo.jpg" width="30"
-				height="30" alt="">
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarNav" aria-controls="navbarNav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>/collaborateurs/lister">Collaborateurs
-							<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
-					</li>
-				</ul>
-			</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"> <a
+			class="navbar-brand" href="#"> <img
+			src="<c:url value="/image/logo.jpg"/>" width="30" height="30" alt="">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					href="<c:url value="lister"/>">Collaborateurs <span
+						class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
+				</li>
+			</ul>
+		</div>
 		</nav>
 	</div>
+	<c:set var="collab" value="${requestScope.collaborateur}" />
 
 	<div class="countainer px-5">
 		<div class="row">
 			<div class="col-8 col-lg-5 offset-2  ">
-				<h1><%=collab.getNom().toUpperCase() + " " + collab.getPrenom() + "- " + collab.getMatricule()%>
+				<h1>
+					<c:out value="${collab.nom }" />
+					-
+					<c:out value="${collab.prenom }" />
+					-
+					<c:out value="${collab.matricule }" />
 
 				</h1>
 
@@ -70,7 +69,7 @@ no">
 		<div class="countainer-fluid px-1">
 			<form class="form-group" method="post" action="">
 				<div class="media">
-					<img src="<%=collab.getPhoto()%>"
+					<img src="<c:out value="${collab.photo }"/>"
 						class="align-self-start  mr-3 img-thumbnail">
 					<div class="media-body">
 
@@ -88,68 +87,72 @@ no">
 								<div id="collapseOne" class="collapse show"
 									aria-labelledby="headingOne" data-parent="#accordionExample">
 									<div class="card-body">
-									
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<div class="form-group">
-														<label for="civilité">Civilité</label>
-													</div>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<select name="genre" class="form-control" id="civilité">
-														<option>Madame</option>
-														<option>Monsieur</option>
-													</select>
+
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<div class="form-group">
+													<label for="civilité">Civilité</label>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="nom">Nom</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input type="text" id="nom" disabled="disabled"
-														value="<%=collab.getNom()%>" class="form-control">
-												</div>
+											<div class="col-12 col-lg-4 form-group">
+												<select name="genre" class="form-control" id="civilité">
+													<option>Madame</option>
+													<option>Monsieur</option>
+												</select>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="prenom">Prenom</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input type="text" id="prenom" disabled="disabled"
-														value="<%=collab.getPrenom()%>" class="form-control">
-												</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="nom">Nom</label>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="dateNaissance">Date de naissance</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input type="text" id="dateNaissance" disabled="disabled"
-														value="<%=collab.getDateNaissance()%>"
-														class="form-control">
-												</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input type="text" id="nom" disabled="disabled"
+													value="<c:out value="${collab.nom }"/>"
+													class="form-control">
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="adresse">Adresse</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<textarea input type="text" name ="adresse" id="adresse" value=""
-														class="form-control"><%=collab.getAdresse()%>
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="prenom">Prenom</label>
+											</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input type="text" id="prenom" disabled="disabled"
+													value="<c:out value="${collab.prenom }"/>"
+													class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="dateNaissance">Date de naissance</label>
+											</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input type="text" id="dateNaissance" disabled="disabled"
+													value="<c:out value="${collab.dateNaissance }"/>"
+													class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="adresse">Adresse</label>
+											</div>
+											<div class="col-12 col-lg-4 form-group">
+												<textarea input type="text" name="adresse" id="adresse"
+													value="" class="form-control"><c:out
+														value="${collab.adresse }" />
                                                 </textarea>
-												</div>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="numeroSecu">Numéro de sécurité sociale</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input type="number" id="numeroSecu" class="form-control"
-														disabled="disabled" value="<%=collab.getNumeroSecu()%>">
-												</div>
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="numeroSecu">Numéro de sécurité sociale</label>
 											</div>
-										
+											<div class="col-12 col-lg-4 form-group">
+												<input type="number" id="numeroSecu" class="form-control"
+													disabled="disabled"
+													value="<c:out value="${collab.numeroSecu }"/>">
+											</div>
+										</div>
+
 									</div>
 								</div>
 							</div>
@@ -165,39 +168,54 @@ no">
 								<div id="collapseTwo" class="collapse" aria-labelledby="poste"
 									data-parent="#accordionExample">
 									<div class="card-body">
-										
-											<div class="row">
-												<div class="col-12 col-md-4 offset-1">
-													<div class="form-group">
-														<label for="exampleFormControlSelect1">Département</label>
-													</div>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<select name="departement" class="form-control"
-														id="exampleFormControlSelect1">
 
-														<%
-															List<Departement> listeDepartements = Constantes.DEPART_SERVICE.listerDepartements();
-															for (Departement departement : listeDepartements) {
-														%>
-														<option><%=departement.getNom()%></option>
-														<%
-															}
-														%>
-													</select>
+										<div class="row">
+											<div class="col-12 col-md-4 offset-1">
+												<div class="form-group">
+													<label for="exampleFormControlSelect1">Département</label>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="nom" >Nom</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input <%if (collab.getIntitulePoste() != null) {%>
-						value="<%=collab.getIntitulePoste()%>" <%}%> type="text" id="nom" name="poste"
-														class="form-control">
-												</div>
+											<div class="col-12 col-lg-4 form-group">
+												<select name="departement" class="form-control"
+													id="exampleFormControlSelect1">
+													<c:choose>
+														<c:when test="${collab.departement.nom == null}">
+
+															<c:forEach items="${departements}" var="dep">
+																<option><c:out value=' ${dep.nom} ' /></option>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>
+															<c:forEach items="${departements}" var="dep">
+																<c:choose>
+																	<c:when test="${collab.departement.nom == dep.nom}">
+																		<option selected><c:out
+																				value=' ${collab.departement.nom} ' />
+																		</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option><c:out value=' ${dep.nom} ' /></option>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
+												</select>
 											</div>
-										
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="nom">Nom</label>
+											</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input
+													<c:if test="${collab.intitulePoste != null }">
+												value="<c:out value="${collab.intitulePoste }"/>"
+												</c:if>
+													type="text" id="nom" name="poste" class="form-control">
+											</div>
+										</div>
+
 									</div>
 								</div>
 							</div>
@@ -213,27 +231,32 @@ no">
 								<div id="collapseThree" class="collapse"
 									aria-labelledby="Coordonnées" data-parent="#accordionExample">
 									<div class="card-body">
-										
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="iban">IBAN</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input  <%if (collab.getIban() != null) {%>
-						value="<%=collab.getIban()%>" <%}%> type="text" id="iban" name="iban"
-														class="form-control">
-												</div>
+
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="iban">IBAN</label>
 											</div>
-											<div class="row">
-												<div class="col-12 col-lg-4 offset-1">
-													<label for="bic">BIC</label>
-												</div>
-												<div class="col-12 col-lg-4 form-group">
-													<input <%if (collab.getBic() != null) {%>
-						value="<%=collab.getBic()%>" <%}%> type="text" id="bic" name="bic" class="form-control">
-												</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input
+													<c:if test="${collab.iban != null }">
+												value="<c:out value="${collab.iban }"/>"
+												</c:if>
+													type="text" id="iban" name="iban" class="form-control">
 											</div>
-										
+										</div>
+										<div class="row">
+											<div class="col-12 col-lg-4 offset-1">
+												<label for="bic">BIC</label>
+											</div>
+											<div class="col-12 col-lg-4 form-group">
+												<input
+													<c:if test="${collab.bic != null }">
+												value="<c:out value="${collab.bic }"/>"
+												</c:if>
+													type="text" id="bic" name="bic" class="form-control">
+											</div>
+										</div>
+
 									</div>
 								</div>
 							</div>
