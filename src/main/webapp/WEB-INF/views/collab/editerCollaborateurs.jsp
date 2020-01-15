@@ -33,7 +33,7 @@
 					href="<c:url value="lister"/>">Collaborateurs <span
 						class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
+				<li class="nav-item"><a class="nav-link" href="<c:url value="statistiques"/>">Statistiques</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
 				</li>

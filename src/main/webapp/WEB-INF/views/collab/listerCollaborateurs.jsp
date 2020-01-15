@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SGP - App</title>
+<title>SGP - liste Collaborateurs</title>
 <link rel="stylesheet"
 	href="<c:url value="/bootstrap-4.4.1/dist/css/bootstrap.css"/>">
 </head>
@@ -30,7 +30,7 @@
 					href="<c:url value="lister"/>">Collaborateurs <span
 						class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
+				<li class="nav-item"><a class="nav-link" href="<c:url value="statistiques"/>">Statistiques</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
 				</li>
